@@ -1,7 +1,7 @@
 **0x19. C - Stacks, Queues - LIFO, FIFO\n**
 *An interpreter for Monty ByteCodes files*
 
-#Directory:<br />
+**Directory:**<br />
 /Monty:<br />
 &nbsp;&nbsp;&nbsp;&nbsp;queen.h: Queen Lizzie's Own Header File<br />
 &nbsp;&nbsp;&nbsp;&nbsp;main_monty.c: Main function's home<br />
