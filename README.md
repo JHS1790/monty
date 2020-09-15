@@ -1,4 +1,4 @@
-**0x19. C - Stacks, Queues - LIFO, FIFO\n**
+**0x19. C - Stacks, Queues - LIFO, FIFO<br />**
 *An interpreter for Monty ByteCodes files*
 
 **Directory:**<br />
