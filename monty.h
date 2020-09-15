@@ -37,7 +37,11 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/* Global Variables */
+extern int global_token_int;
+
 /* Project Prototypes */
+int check_opcode(stack_t *stack, unsigned int line_number, char *token_opcode, char *token_int);
 
 /* Non-Project Prototypes */
 
