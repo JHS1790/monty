@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 /* Structs */
 /**
@@ -34,21 +35,24 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-	/*void (*f)(stack_t **stack, unsigned int line_number);*/
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /* Global Variables */
-extern int global_token_int;
+extern int *global_token_int;
 
 /* Project Prototypes */
-int check_opcode(stack_t *stack, unsigned int line_number
-, char *token_opcode, char *token_int);
-void blih(stack_t **stack, unsigned int line_number);
-void blah(stack_t **stack, unsigned int line_number);
-void bloh(stack_t **stack, unsigned int line_number);
-void blyh(stack_t **stack, unsigned int line_number);
-void bluh(stack_t **stack, unsigned int line_number);
-void iranoutofvowels(stack_t **stack, unsigned int line_number);
+void push_monty(stack_t **stack, unsigned int line_number);
+void pall_monty(stack_t **stack, unsigned int line_number);
+void pint_monty(stack_t **stack, unsigned int line_number);
+void pop_monty(stack_t **stack, unsigned int line_number);
+void swap_monty(stack_t **stack, unsigned int line_number);
+void add_monty(stack_t **stack, unsigned int line_number);
+void nop_monty(stack_t **stack, unsigned int line_number);
+
 /* Non-Project Prototypes */
+int check_opcode(stack_t **stack, unsigned int line_number
+, char *token_opcode, char *token_int);
+int check_token_int(char *token_int);
 
 #endif /* LIZZIE */
