@@ -9,7 +9,6 @@ void push_monty(stack_t **stack, unsigned int line_number)
 {
 	stack_t *newnode = malloc(sizeof(stack_t)), *navigator = *stack;
 
-	(void)line_number;
 	/*printf("Push function successfully called!\n");*/
 	if (!newnode)
 	{
@@ -17,7 +16,13 @@ void push_monty(stack_t **stack, unsigned int line_number)
 		return;
 	}
 	newnode->next = NULL;
-	newnode->n = global_token_int;
+	if (global_token_int)
+		newnode->n = *global_token_int;
+	else
+	{
+		fprintf(stderr, "L%d: usage: push integer", line_number);
+		exit (EXIT_FAILURE);
+	}
 	/*printf("Newnode successfully formed!\n");*/
 	if (!*stack)
 	{

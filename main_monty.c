@@ -1,5 +1,5 @@
 #include "monty.h"
-int global_token_int;
+int *global_token_int;
 /**
  * main - an interpreter for Monty ByteCodes files
  * @argv: arguments vector - the arguments as an array of strings passed in
@@ -25,11 +25,9 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: Can\'t open file %s", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	/* File is open*/
 	/*printf("File opened successfully\n");*/
 	while (fgets(buffer, 1024, file))
 	{
-		/*Reading file line by line*/
 		line_number++;
 		/*printf("line number incremented\n");*/
 		token_opcode = strtok(buffer, " \n");
@@ -43,8 +41,8 @@ int main(int argc, char **argv)
 	}
 
 	fclose(file);
-	/* File is closed*/
 	free(buffer);
+	free(global_token_int);
 	exit(EXIT_SUCCESS);
 }
 /**
@@ -58,22 +56,33 @@ int main(int argc, char **argv)
 int check_opcode(stack_t **stack, unsigned int line_number,
 char *token_opcode, char *token_int)
 {
-	int i;
+	int i, token_check;
 	instruction_t ops[] = {
 		{"push", &push_monty},
-		/*{"pall", &pall_monty},
-		{"pint", &pint_monty},
+		{"pall", &pall_monty},
+		/*{"pint", &pint_monty},
 		{"pop", &pop_monty},
 		{"swap", &swap_monty},
 		{"add", &add_monty},
 		{"nop", &nop_monty},*/
 		{NULL, NULL} };
 
+	global_token_int = malloc(sizeof(int));
 	/*printf("Successfully entered check_opcode\n");*/
 	if (token_int)
-		global_token_int = atoi(token_int);
-	(void)stack;
-	(void)line_number;
+	{
+		/*printf("Entered token_int check\n");*/
+		token_check = check_token_int(token_int);
+		/*printf("token_check = %d\n", token_check);*/
+		if (token_check == 0)
+		{
+			*global_token_int = atoi(token_int);
+		}
+		else
+			global_token_int = NULL;
+	}
+	else
+		global_token_int = NULL;
 	for (i = 0; ops[i].opcode != NULL; i++)
 	{
 		if (!strcmp(token_opcode, ops[i].opcode))
@@ -85,4 +94,19 @@ char *token_opcode, char *token_int)
 	}
 	/*printf("Mission failed, we'll get 'em next time\n");*/
 	return (1);
+}
+/**
+ *
+ */
+int check_token_int(char *token_int)
+{
+	unsigned int i;
+
+	/*printf("Entered check_token_int");*/
+	for (i = 0; i < strlen(token_int); i++)
+	{
+		if (!(token_int[i] >= '0' && token_int[i] <= '9'))
+			return (1);
+	}
+	return (0);
 }

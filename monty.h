@@ -39,11 +39,9 @@ typedef struct instruction_s
 } instruction_t;
 
 /* Global Variables */
-extern int global_token_int;
+extern int *global_token_int;
 
 /* Project Prototypes */
-int check_opcode(stack_t **stack, unsigned int line_number
-, char *token_opcode, char *token_int);
 void push_monty(stack_t **stack, unsigned int line_number);
 void pall_monty(stack_t **stack, unsigned int line_number);
 void pint_monty(stack_t **stack, unsigned int line_number);
@@ -53,5 +51,8 @@ void add_monty(stack_t **stack, unsigned int line_number);
 void nop_monty(stack_t **stack, unsigned int line_number);
 
 /* Non-Project Prototypes */
+int check_opcode(stack_t **stack, unsigned int line_number
+, char *token_opcode, char *token_int);
+int check_token_int(char *token_int);
 
 #endif /* LIZZIE */
