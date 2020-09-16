@@ -15,12 +15,12 @@
  *
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO Holberton project
- */
+*/
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -33,16 +33,22 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	/*void (*f)(stack_t **stack, unsigned int line_number);*/
 } instruction_t;
 
 /* Global Variables */
 extern int global_token_int;
 
 /* Project Prototypes */
-int check_opcode(stack_t *stack, unsigned int line_number, char *token_opcode, char *token_int);
-
+int check_opcode(stack_t *stack, unsigned int line_number
+, char *token_opcode, char *token_int);
+void blih(stack_t **stack, unsigned int line_number);
+void blah(stack_t **stack, unsigned int line_number);
+void bloh(stack_t **stack, unsigned int line_number);
+void blyh(stack_t **stack, unsigned int line_number);
+void bluh(stack_t **stack, unsigned int line_number);
+void iranoutofvowels(stack_t **stack, unsigned int line_number);
 /* Non-Project Prototypes */
 
 #endif /* LIZZIE */
