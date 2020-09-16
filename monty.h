@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 /* Structs */
 /**
@@ -34,14 +35,14 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-	/*void (*f)(stack_t **stack, unsigned int line_number);*/
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /* Global Variables */
 extern int global_token_int;
 
 /* Project Prototypes */
-int check_opcode(stack_t *stack, unsigned int line_number
+int check_opcode(stack_t **stack, unsigned int line_number
 , char *token_opcode, char *token_int);
 void push_monty(stack_t **stack, unsigned int line_number);
 void pall_monty(stack_t **stack, unsigned int line_number);
