@@ -54,5 +54,6 @@ void nop_monty(stack_t **stack, unsigned int line_number);
 int check_opcode(stack_t **stack, unsigned int line_number
 , char *token_opcode, char *token_int);
 int check_token_int(char *token_int);
+void free_monty_stack(stack_t **stack);
 
 #endif /* LIZZIE */

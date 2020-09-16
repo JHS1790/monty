@@ -25,24 +25,22 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: Can\'t open file %s", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	/*printf("File opened successfully\n");*/
 	while (fgets(buffer, 1024, file))
 	{
 		line_number++;
-		/*printf("line number incremented\n");*/
 		token_opcode = strtok(buffer, " \n");
-		/*printf("token_opcode strtok\'d\n");*/
-		if (!strcmp(token_opcode, "push"))
-			token_int = strtok(NULL, " \n");
-		else
-			token_int = NULL;
-		/*printf("opcode:%s || data:%s\n", token_opcode, token_int);*/
-		check_opcode(stack, line_number, token_opcode, token_int);
+		if (token_opcode)
+		{
+			if (!strcmp(token_opcode, "push"))
+				token_int = strtok(NULL, " \n");
+			else
+				token_int = NULL;
+			check_opcode(stack, line_number, token_opcode, token_int);
+		}
 	}
-
 	fclose(file);
 	free(buffer);
-	free(global_token_int);
+	free_monty_stack(stack);
 	exit(EXIT_SUCCESS);
 }
 /**
@@ -67,10 +65,10 @@ char *token_opcode, char *token_int)
 		{"nop", &nop_monty},*/
 		{NULL, NULL} };
 
-	global_token_int = malloc(sizeof(int));
 	/*printf("Successfully entered check_opcode\n");*/
 	if (token_int)
 	{
+		global_token_int = malloc(sizeof(int*));
 		/*printf("Entered token_int check\n");*/
 		token_check = check_token_int(token_int);
 		/*printf("token_check = %d\n", token_check);*/
@@ -89,24 +87,10 @@ char *token_opcode, char *token_int)
 		{
 			/*printf("Success! Opcode pulled: %s\n", ops[i].opcode);*/
 			ops[i].f(stack, line_number);
-			return (0);
+			break;
 		}
 	}
+	free(global_token_int);
 	/*printf("Mission failed, we'll get 'em next time\n");*/
-	return (1);
-}
-/**
- *
- */
-int check_token_int(char *token_int)
-{
-	unsigned int i;
-
-	/*printf("Entered check_token_int");*/
-	for (i = 0; i < strlen(token_int); i++)
-	{
-		if (!(token_int[i] >= '0' && token_int[i] <= '9'))
-			return (1);
-	}
 	return (0);
 }
