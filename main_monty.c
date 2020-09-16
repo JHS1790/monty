@@ -40,7 +40,6 @@ int main(int argc, char **argv)
 
 	exit(EXIT_SUCCESS);
 }
-
 /**
  * check_opcode - checks the token if its an opcode
  * @stack: the stack to be passed if opcode
@@ -54,14 +53,14 @@ char *token_opcode, char *token_int)
 {
 	int i;
 	instruction_t ops[] = {
-			{"push",/* *blah*/},
-			{"pall", /*bleh*/},
-			{"pint", /*blih*/},
-			{"pop", /*bloh*/},
-			{"swap", /*bluh*/},
-			{"add", /*blyh8*/},
-			{"nop", /*ran out of nouns*/},
-			{NULL, /*NULL*/} };
+		{"push", /*&push_monty*/},
+		{"pall", /*&pall_monty*/},
+		{"pint", /*&pint_monty*/},
+		{"pop", /*&pop_monty*/},
+		{"swap", /*&swap_monty*/},
+		{"add", /*&add_monty*/},
+		{"nop", /*&nop_monty*/},
+		{NULL, /*NULL*/} };
 
 	if (token_int)
 		global_token_int = atoi(token_int);
@@ -71,10 +70,10 @@ char *token_opcode, char *token_int)
 	{
 		if (!strcmp(token_opcode, ops[i].opcode))
 		{
-			printf("success fuckface\n");
-			return (1);
+			printf("Success! Opcode pulled: %s\n", ops[i].opcode);
+			return (0);
 		}
 	}
-
-	return (0);
+	printf("Mission failed, we'll get 'em next time\n");
+	return (1);
 }
