@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 	char *buffer = malloc(1024), *token_opcode, *token_int;
 	unsigned int line_number = 0;
 	FILE *file;
-	stack_t **stack = malloc(sizeof(stack_t*));
+	stack_t **stack = malloc(sizeof(stack_t *));
 
 	if (argc != 2)
 	{
@@ -58,17 +58,12 @@ char *token_opcode, char *token_int)
 	instruction_t ops[] = {
 		{"push", &push_monty},
 		{"pall", &pall_monty},
-		/*{"pint", &pint_monty},
-		{"pop", &pop_monty},
-		{"swap", &swap_monty},
-		{"add", &add_monty},
-		{"nop", &nop_monty},*/
 		{NULL, NULL} };
 
 	/*printf("Successfully entered check_opcode\n");*/
 	if (token_int)
 	{
-		global_token_int = malloc(sizeof(int*));
+		global_token_int = malloc(sizeof(int *));
 		/*printf("Entered token_int check\n");*/
 		token_check = check_token_int(token_int);
 		/*printf("token_check = %d\n", token_check);*/
