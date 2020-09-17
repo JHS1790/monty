@@ -17,9 +17,9 @@ int main(int argc, char **argv)
 	if (buffer == NULL || global_variables == NULL)
 		error_monty(3, &stack, NULL);
 	global_variables->buffer = &buffer;
- 	if (argc != 2)
+	if (argc != 2)
 		error_monty(1, &stack, NULL);
- 	file = fopen(argv[1], "r");
+	file = fopen(argv[1], "r");
 	global_variables->file = &file;
 	if (file == NULL)
 		error_monty(2, &stack, argv[1]);
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 int check_opcode(stack_t **stack, unsigned int line_number,
 char *token_opcode, char *token_int)
 {
-	int i, token_check, *n = malloc(sizeof(int *));
+	int i, *n = malloc(sizeof(int *));
 	instruction_t ops[] = {
 		{"push", &push_monty},
 		{"pall", &pall_monty},
@@ -59,40 +59,21 @@ char *token_opcode, char *token_int)
 		{"swap", &swap_monty},
 		{"nop", &nop_monty},
 		{"#", &nop_monty},
+		{"add", &add_monty},
 		{NULL, NULL} };
 
-	/*printf("Successfully entered check_opcode\n");*/
-	if (token_int)
-	{
-		/*printf("Entered token_int check\n");*/
-		token_check = check_token_int(token_int);
-		/*printf("token_check = %d\n", token_check);*/
-		if (token_check == 0)
-		{
-			*n = atoi(token_int);
-			global_variables->n = n;
-			/*printf("global n:%i\n", *(global_variables->n));*/
-		}
-		else
-		{
-			global_variables->n = NULL;
-			free(n);
-		}
-	}
-	else
-		global_variables->n = NULL;
+	insert_int(token_int, n);
+
 	for (i = 0; ops[i].opcode != NULL; i++)
 	{
 		if ((!strcmp(token_opcode, ops[i].opcode)) || token_opcode[i] == '#')
 		{
-			/*printf("Success! Opcode pulled: %s\n", ops[i].opcode);*/
 			ops[i].f(stack, line_number);
 			global_variables->n = NULL;
 			free(n);
-			return(0);
+			return (0);
 		}
 	}
-	/*printf("Mission failed, we'll get 'em next time\n");*/
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, token_opcode);
 	if (n)
 		free(n);
