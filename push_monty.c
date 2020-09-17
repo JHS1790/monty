@@ -22,6 +22,7 @@ void push_monty(stack_t **stack, unsigned int line_number)
 	else
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		free(newnode);
 		free_monty_stack(stack);
 		exit(EXIT_FAILURE);
 	}
