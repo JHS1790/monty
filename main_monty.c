@@ -58,6 +58,7 @@ char *token_opcode, char *token_int)
 	instruction_t ops[] = {
 		{"push", &push_monty},
 		{"pall", &pall_monty},
+		{"pint", &pint_monty},
 		{NULL, NULL} };
 
 	/*printf("Successfully entered check_opcode\n");*/
