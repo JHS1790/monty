@@ -14,6 +14,7 @@ void swap_monty(stack_t **stack, unsigned int line_number)
 	    (navigator->next == NULL && navigator->prev == NULL))
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short", line_number);
+		free_monty_stack(stack);
 		exit (EXIT_FAILURE);
 	}
 	while (navigator->next)

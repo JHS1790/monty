@@ -8,25 +8,25 @@ global_t *global_variables;
  */
 int main(int argc, char **argv)
 {
-	char *buffer/* = malloc(1024)*/, *token_opcode, *token_int;
+	char *buffer = malloc(1024), *token_opcode, *token_int;
 	unsigned int line_number = 0;
 	FILE *file;
-	stack_t *stack/* = malloc(sizeof(stack_t *))*/;
+	stack_t *stack = NULL;
 
-	global_variables = malloc(sizeof(global_t *));
-	*(global_variables->stack) = malloc(sizeof(stack_t *));
- 	*(global_variables->buffer) = malloc(1024);
-	
+	global_variables = malloc(sizeof(global_t));
+	global_variables->buffer = &buffer;
  	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
+		free_monty_stack(&stack);
 		exit(EXIT_FAILURE);
 	}
-	stack = NULL;
  	file = fopen(argv[1], "r");
+	global_variables->file = &file;
 	if (file == NULL)
 	{
 		fprintf(stderr, "Error: Can\'t open file %s", argv[1]);
+		free_monty_stack(&stack);
 		exit(EXIT_FAILURE);
 	}
 	while (fgets(buffer, 1024, file))
@@ -42,8 +42,7 @@ int main(int argc, char **argv)
 			check_opcode(&stack, line_number, token_opcode, token_int);
 		}
 	}
-	fclose(file);
-	free_monty_stack();
+	free_monty_stack(&stack);
 	exit(EXIT_SUCCESS);
 }
 /**
@@ -75,14 +74,14 @@ char *token_opcode, char *token_int)
 		if (token_check == 0)
 		{
 			*n = atoi(token_int);
-			global_variables->n = &n;
+			global_variables->n = n;
 			/*printf("global n:%i\n", *(global_variables->n));*/
 		}
 		else
-			*(global_variables->n) = NULL;
+			global_variables->n = NULL;
 	}
 	else
-		*(global_variables->n) = NULL;
+		global_variables->n = NULL;
 	for (i = 0; ops[i].opcode != NULL; i++)
 	{
 		if (!strcmp(token_opcode, ops[i].opcode))
@@ -92,6 +91,7 @@ char *token_opcode, char *token_int)
 			break;
 		}
 	}
+	global_variables->n = NULL;
 	free(n);
 	/*printf("Mission failed, we'll get 'em next time\n");*/
 	return (0);

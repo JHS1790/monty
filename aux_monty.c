@@ -19,29 +19,28 @@ int check_token_int(char *token_int)
 /**
  * free_monty_stack - frees montys stack
  */
-void free_monty_stack()
+void free_monty_stack(stack_t **stack)
 {
-	stack_t *navigator, *stack = *(global_variables->stack);
-	char *buffer = *(global_variables->buffer);
-	int *n = *(global_variables->n);
-
-	if (stack)
+	stack_t *navigator;
+/*	char *buffer = *(global_variables->buffer);
+ *	int *n = *(global_variables->n);
+ */
+	if (*stack)
 	{
-		while (stack->next)
-			stack = stack->next;
-		while (stack->prev)
+		while ((*stack)->next)
+			*stack = (*stack)->next;
+		while ((*stack)->prev)
 		{
-			navigator = stack;
-			stack = stack->prev;
+			navigator = *stack;
+			*stack = (*stack)->prev;
 			free(navigator);
 		}
-		free(stack);
+		free(*stack);
 	}
-	if (n)
-		free(n);
-	free(buffer);
-	free(global_variables->n);
-	free(global_variables->buffer);
-	free(global_variables->stack);
+	if (global_variables->n)
+		free(global_variables->n);
+	free(*global_variables->buffer);
+	if (*global_variables->file)
+		fclose(*global_variables->file);
 	free(global_variables);
 }
