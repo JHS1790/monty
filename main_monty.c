@@ -59,6 +59,7 @@ char *token_opcode, char *token_int)
 		{"push", &push_monty},
 		{"pall", &pall_monty},
 		{"pint", &pint_monty},
+		{"pop", &pop_monty},
 		{NULL, NULL} };
 
 	/*printf("Successfully entered check_opcode\n");*/
