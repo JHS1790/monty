@@ -14,21 +14,15 @@ int main(int argc, char **argv)
 	stack_t *stack = NULL;
 
 	global_variables = malloc(sizeof(global_t));
+	if (buffer == NULL || global_variables == NULL)
+		error_monty(3, &stack, NULL);
 	global_variables->buffer = &buffer;
  	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		free_monty_stack(&stack);
-		exit(EXIT_FAILURE);
-	}
+		error_monty(1, &stack, NULL);
  	file = fopen(argv[1], "r");
 	global_variables->file = &file;
 	if (file == NULL)
-	{
-		fprintf(stderr, "Error: Can\'t open file %s\n", argv[1]);
-		free_monty_stack(&stack);
-		exit(EXIT_FAILURE);
-	}
+		error_monty(2, &stack, argv[1]);
 	while (fgets(buffer, 1024, file))
 	{
 		line_number++;

@@ -44,3 +44,24 @@ void free_monty_stack(stack_t **stack)
 		fclose(*global_variables->file);
 	free(global_variables);
 }
+/**
+ *
+ */
+void error_monty(int errorcode, stack_t **stack, char *file)
+{
+	switch (errorcode)
+	{
+	case 1:
+		fprintf(stderr, "USAGE: monty file\n");
+		free_monty_stack(stack);
+		exit(EXIT_FAILURE);
+	case 2:
+		fprintf(stderr, "Error: Can\'t open file %s\n", file);
+		free_monty_stack(stack);
+		exit(EXIT_FAILURE);
+	case 3:
+		fprintf(stderr, "Error: malloc failed\n");
+		free_monty_stack(stack);
+		exit(EXIT_FAILURE);
+	}
+}
