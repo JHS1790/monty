@@ -12,9 +12,9 @@ void pall_monty(stack_t **stack, unsigned int line_number)
 	(void)line_number;
 	if (!*stack)
 		return;
-	while(navigator->next)
+	while (navigator->next)
 		navigator = navigator->next;
-	while(navigator->prev)
+	while (navigator->prev)
 	{
 		printf("%d\n", navigator->n);
 		navigator = navigator->prev;
