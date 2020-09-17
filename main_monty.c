@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	global_variables->file = &file;
 	if (file == NULL)
 	{
-		fprintf(stderr, "Error: Can\'t open file %s", argv[1]);
+		fprintf(stderr, "Error: Can\'t open file %s\n", argv[1]);
 		free_monty_stack(&stack);
 		exit(EXIT_FAILURE);
 	}
@@ -88,11 +88,14 @@ char *token_opcode, char *token_int)
 		{
 			/*printf("Success! Opcode pulled: %s\n", ops[i].opcode);*/
 			ops[i].f(stack, line_number);
-			break;
+			global_variables->n = NULL;
+			free(n);
+			return(0);
 		}
 	}
-	global_variables->n = NULL;
-	free(n);
 	/*printf("Mission failed, we'll get 'em next time\n");*/
-	return (0);
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, token_opcode);
+	free(n);
+	free_monty_stack(stack);
+	exit (EXIT_FAILURE);
 }
