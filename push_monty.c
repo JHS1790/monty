@@ -16,8 +16,8 @@ void push_monty(stack_t **stack, unsigned int line_number)
 		return;
 	}
 	newnode->next = NULL;
-	if (global_token_int)
-		newnode->n = *global_token_int;
+	if (global_variables->n)
+		newnode->n = **(global_variables->n);
 	else
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
