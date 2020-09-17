@@ -65,3 +65,31 @@ void error_monty(int errorcode, stack_t **stack, char *file)
 		exit(EXIT_FAILURE);
 	}
 }
+/**
+*
+*
+*
+*/
+void insert_int(char *token_int, int *n)
+{
+	int token_check;
+	if (token_int)
+	{
+		/*printf("Entered token_int check\n");*/
+		token_check = check_token_int(token_int);
+		/*printf("token_check = %d\n", token_check);*/
+		if (token_check == 0)
+		{
+			*n = atoi(token_int);
+			global_variables->n = n;
+			/*printf("global n:%i\n", *(global_variables->n));*/
+		}
+		else
+		{
+			global_variables->n = NULL;
+			free(n);
+		}
+	}
+	else
+		global_variables->n = NULL;
+}
