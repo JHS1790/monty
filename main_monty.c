@@ -72,7 +72,10 @@ char *token_opcode, char *token_int)
 			/*printf("global n:%i\n", *(global_variables->n));*/
 		}
 		else
+		{
 			global_variables->n = NULL;
+			free(n);
+		}
 	}
 	else
 		global_variables->n = NULL;
@@ -89,7 +92,8 @@ char *token_opcode, char *token_int)
 	}
 	/*printf("Mission failed, we'll get 'em next time\n");*/
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, token_opcode);
-	free(n);
+	if (n)
+		free(n);
 	free_monty_stack(stack);
 	exit (EXIT_FAILURE);
 }
