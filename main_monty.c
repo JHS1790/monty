@@ -57,6 +57,8 @@ char *token_opcode, char *token_int)
 		{"pint", &pint_monty},
 		{"pop", &pop_monty},
 		{"swap", &swap_monty},
+		{"nop", &nop_monty},
+		{"#", &nop_monty},
 		{NULL, NULL} };
 
 	/*printf("Successfully entered check_opcode\n");*/
@@ -81,7 +83,7 @@ char *token_opcode, char *token_int)
 		global_variables->n = NULL;
 	for (i = 0; ops[i].opcode != NULL; i++)
 	{
-		if (!strcmp(token_opcode, ops[i].opcode))
+		if ((!strcmp(token_opcode, ops[i].opcode)) || token_opcode[i] == '#')
 		{
 			/*printf("Success! Opcode pulled: %s\n", ops[i].opcode);*/
 			ops[i].f(stack, line_number);
