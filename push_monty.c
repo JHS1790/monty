@@ -21,7 +21,7 @@ void push_monty(stack_t **stack, unsigned int line_number)
 	else
 	{
 		fprintf(stderr, "L%d: usage: push integer", line_number);
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	/*printf("Newnode successfully formed!\n");*/
 	if (!*stack)
@@ -31,7 +31,7 @@ void push_monty(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-		while(navigator->next)
+		while (navigator->next)
 			navigator = navigator->next;
 		navigator->next = newnode;
 		newnode->prev = navigator;
