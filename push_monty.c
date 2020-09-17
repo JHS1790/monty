@@ -20,7 +20,7 @@ void push_monty(stack_t **stack, unsigned int line_number)
 		newnode->n = *global_token_int;
 	else
 	{
-		fprintf(stderr, "L%d: usage: push integer", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	/*printf("Newnode successfully formed!\n");*/
