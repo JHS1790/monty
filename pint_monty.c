@@ -11,6 +11,7 @@ void pint_monty(stack_t **stack, unsigned int line_number)
 	if (nav == NULL)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		free_monty_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 	while (nav->next != NULL)

@@ -1,5 +1,5 @@
 #include "monty.h"
-int *global_token_int;
+global_t *global_variables;
 /**
  * main - an interpreter for Monty ByteCodes files
  * @argv: arguments vector - the arguments as an array of strings passed in
@@ -11,18 +11,22 @@ int main(int argc, char **argv)
 	char *buffer = malloc(1024), *token_opcode, *token_int;
 	unsigned int line_number = 0;
 	FILE *file;
-	stack_t **stack = malloc(sizeof(stack_t *));
+	stack_t *stack = NULL;
 
-	if (argc != 2)
+	global_variables = malloc(sizeof(global_t));
+	global_variables->buffer = &buffer;
+ 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
+		free_monty_stack(&stack);
 		exit(EXIT_FAILURE);
 	}
-	*stack = NULL;
-	file = fopen(argv[1], "r");
+ 	file = fopen(argv[1], "r");
+	global_variables->file = &file;
 	if (file == NULL)
 	{
 		fprintf(stderr, "Error: Can\'t open file %s", argv[1]);
+		free_monty_stack(&stack);
 		exit(EXIT_FAILURE);
 	}
 	while (fgets(buffer, 1024, file))
@@ -35,12 +39,10 @@ int main(int argc, char **argv)
 				token_int = strtok(NULL, " \n");
 			else
 				token_int = NULL;
-			check_opcode(stack, line_number, token_opcode, token_int);
+			check_opcode(&stack, line_number, token_opcode, token_int);
 		}
 	}
-	fclose(file);
-	free(buffer);
-	free_monty_stack(stack);
+	free_monty_stack(&stack);
 	exit(EXIT_SUCCESS);
 }
 /**
@@ -54,29 +56,32 @@ int main(int argc, char **argv)
 int check_opcode(stack_t **stack, unsigned int line_number,
 char *token_opcode, char *token_int)
 {
-	int i, token_check;
+	int i, token_check, *n = malloc(sizeof(int *));
 	instruction_t ops[] = {
 		{"push", &push_monty},
 		{"pall", &pall_monty},
 		{"pint", &pint_monty},
+		{"pop", &pop_monty},
+		{"swap", &swap_monty},
 		{NULL, NULL} };
 
 	/*printf("Successfully entered check_opcode\n");*/
 	if (token_int)
 	{
-		global_token_int = malloc(sizeof(int *));
 		/*printf("Entered token_int check\n");*/
 		token_check = check_token_int(token_int);
 		/*printf("token_check = %d\n", token_check);*/
 		if (token_check == 0)
 		{
-			*global_token_int = atoi(token_int);
+			*n = atoi(token_int);
+			global_variables->n = n;
+			/*printf("global n:%i\n", *(global_variables->n));*/
 		}
 		else
-			global_token_int = NULL;
+			global_variables->n = NULL;
 	}
 	else
-		global_token_int = NULL;
+		global_variables->n = NULL;
 	for (i = 0; ops[i].opcode != NULL; i++)
 	{
 		if (!strcmp(token_opcode, ops[i].opcode))
@@ -86,7 +91,8 @@ char *token_opcode, char *token_int)
 			break;
 		}
 	}
-	free(global_token_int);
+	global_variables->n = NULL;
+	free(n);
 	/*printf("Mission failed, we'll get 'em next time\n");*/
 	return (0);
 }

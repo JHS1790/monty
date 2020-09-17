@@ -18,12 +18,13 @@ int check_token_int(char *token_int)
 }
 /**
  * free_monty_stack - frees montys stack
- * @stack: the stack to be freed
  */
 void free_monty_stack(stack_t **stack)
 {
 	stack_t *navigator;
-
+/*	char *buffer = *(global_variables->buffer);
+ *	int *n = *(global_variables->n);
+ */
 	if (*stack)
 	{
 		while ((*stack)->next)
@@ -36,5 +37,10 @@ void free_monty_stack(stack_t **stack)
 		}
 		free(*stack);
 	}
-	free(stack);
+	if (global_variables->n)
+		free(global_variables->n);
+	free(*global_variables->buffer);
+	if (*global_variables->file)
+		fclose(*global_variables->file);
+	free(global_variables);
 }

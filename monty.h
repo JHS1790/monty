@@ -38,8 +38,18 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ *
+ */
+typedef struct global_s
+{
+	int *n;
+	char **buffer;
+	FILE **file;
+} global_t;
+
 /* Global Variables */
-extern int *global_token_int;
+extern global_t *global_variables;
 
 /* Project Prototypes */
 void push_monty(stack_t **stack, unsigned int line_number);
