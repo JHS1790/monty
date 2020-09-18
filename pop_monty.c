@@ -1,8 +1,8 @@
 #include "monty.h"
 /**
- * pop_monty -
- * @stack:
- * @line_number:
+ * pop_monty - pops the first in the stack
+ * @stack: the thing to do things to
+ * @line_number: for error msg
  */
 void pop_monty(stack_t **stack, unsigned int line_number)
 {
@@ -12,7 +12,7 @@ void pop_monty(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		free_monty_stack(stack);
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	while (navigator->next)
 		navigator = navigator->next;

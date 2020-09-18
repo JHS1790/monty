@@ -6,16 +6,17 @@
 */
 void add_monty(stack_t **stack, unsigned int line_number)
 {
-	int cur;
+	stack_t *nav = *stack;
 
-	while ((*stack)->next != NULL)
-		(*stack) = (*stack)->next;
-	cur = (*stack)->n;
-	if ((*stack)->prev == NULL)
+	while (nav->next != NULL)
+		nav = nav->next;
+		
+
+	if (nav->prev == NULL)
 	{
 		fprintf(stderr, "L%d: can't add, stack too short", line_number);
 		exit(EXIT_FAILURE);
 	}
-	(*stack)->prev->n = cur + (*stack)->prev->n;
+	nav->prev->n = nav->n + nav->prev->n;
 	pop_monty(stack, line_number);
 }

@@ -66,5 +66,5 @@ int check_opcode(stack_t **stack, unsigned int line_number
 int check_token_int(char *token_int);
 void free_monty_stack(stack_t **stack);
 void error_monty(int errorcode, stack_t **stack, char *file);
-
+void insert_int(char *token_int, int *n); 
 #endif /* LIZZIE */
