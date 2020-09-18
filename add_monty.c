@@ -10,7 +10,6 @@ void add_monty(stack_t **stack, unsigned int line_number)
 
 	while (nav->next != NULL)
 		nav = nav->next;
-		
 
 	if (nav->prev == NULL)
 	{
