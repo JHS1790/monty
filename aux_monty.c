@@ -8,7 +8,7 @@ int check_token_int(char *token_int)
 {
 	unsigned int i;
 
-	/*printf("Entered check_token_int");*/
+
 	for (i = 0; i < strlen(token_int); i++)
 	{
 		if (!(token_int[i] >= '0' && token_int[i] <= '9'))
@@ -18,13 +18,12 @@ int check_token_int(char *token_int)
 }
 /**
  * free_monty_stack - frees montys stack
+ * @stack: stack to be free
  */
 void free_monty_stack(stack_t **stack)
 {
 	stack_t *navigator;
-/*	char *buffer = *(global_variables->buffer);
- *	int *n = *(global_variables->n);
- */
+
 	if (*stack)
 	{
 		while ((*stack)->next)
@@ -45,7 +44,10 @@ void free_monty_stack(stack_t **stack)
 	free(global_variables);
 }
 /**
- *
+ * error_monty - deals with error
+ * @errorcode: errorcode against5f2a965723c2721c9c445f4e2fae8986363b56e5
+ * @stack: stack to free
+ * @file: file to close
  */
 void error_monty(int errorcode, stack_t **stack, char *file)
 {
@@ -66,23 +68,21 @@ void error_monty(int errorcode, stack_t **stack, char *file)
 	}
 }
 /**
-*
-*
-*
+* insert_int - inserts int into the global variable
+* @token_int: int to insert
+* @n: space to input int
 */
 void insert_int(char *token_int, int *n)
 {
 	int token_check;
+
 	if (token_int)
 	{
-		/*printf("Entered token_int check\n");*/
 		token_check = check_token_int(token_int);
-		/*printf("token_check = %d\n", token_check);*/
 		if (token_check == 0)
 		{
 			*n = atoi(token_int);
 			global_variables->n = n;
-			/*printf("global n:%i\n", *(global_variables->n));*/
 		}
 		else
 		{
