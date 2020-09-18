@@ -60,6 +60,9 @@ char *token_opcode, char *token_int)
 		{"nop", &nop_monty},
 		{"#", &nop_monty},
 		{"add", &add_monty},
+		{"sub", &sub_monty},
+		{"mul", &mul_monty},
+		{"div", &div_monty},
 		{NULL, NULL} };
 
 	insert_int(token_int, n);
@@ -78,5 +81,5 @@ char *token_opcode, char *token_int)
 	if (n)
 		free(n);
 	free_monty_stack(stack);
-	exit (EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
